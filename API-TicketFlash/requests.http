@@ -1,0 +1,141 @@
+### ========================================================================
+### TicketFlash API — Coleção de Requisições HTTP
+### Compatível com VS Code REST Client / IntelliJ .http
+### ========================================================================
+
+### ─── Health Check ──────────────────────────────────────────────────────
+GET http://localhost:8000/
+
+### ========================================================================
+### EVENTOS
+### ========================================================================
+
+### Criar evento
+POST http://localhost:8000/eventos/
+Content-Type: application/json
+
+{
+  "nome": "Show de Teste",
+  "categoria": "Show",
+  "data": "2025-12-20T20:00:00",
+  "local": {
+    "cidade": "São Paulo",
+    "endereco": "Av. Paulista, 1000"
+  },
+  "atracoes": ["Artista A", "Artista B"],
+  "setores": [
+    {"nome": "Pista", "preco": 150.0, "capacidade": 100, "vendidos": 0},
+    {"nome": "VIP", "preco": 350.0, "capacidade": 50, "vendidos": 0}
+  ]
+}
+
+### Listar todos os eventos
+GET http://localhost:8000/eventos/
+
+### Listar eventos por categoria
+GET http://localhost:8000/eventos/?categoria=Show
+
+### Listar eventos por cidade
+GET http://localhost:8000/eventos/?cidade=São Paulo
+
+### Listar eventos por categoria e cidade
+GET http://localhost:8000/eventos/?categoria=Show&cidade=São Paulo
+
+### Buscar evento por ID (substitua o ID)
+### Primeira chamada: origem = "banco" | Segunda chamada: origem = "cache"
+GET http://localhost:8000/eventos/{{evento_id}}
+
+### Atualizar evento (substitua o ID)
+PUT http://localhost:8000/eventos/{{evento_id}}
+Content-Type: application/json
+
+{
+  "nome": "Show de Teste — Atualizado"
+}
+
+### Remover evento (substitua o ID)
+DELETE http://localhost:8000/eventos/{{evento_id}}
+
+### ========================================================================
+### RANKING (Req. 7) — Top 5 eventos mais visualizados
+### ========================================================================
+
+GET http://localhost:8000/eventos/ranking
+
+### ========================================================================
+### RELATÓRIOS / AGREGAÇÕES (Req. 4)
+### ========================================================================
+
+### Faturamento por evento (pedidos confirmados, maior para menor)
+GET http://localhost:8000/eventos/relatorios/faturamento
+
+### Ocupação por setor de um evento (substitua o ID)
+GET http://localhost:8000/eventos/relatorios/ocupacao/{{evento_id}}
+
+### ========================================================================
+### USUÁRIOS
+### ========================================================================
+
+### Criar usuário
+POST http://localhost:8000/usuarios/
+Content-Type: application/json
+
+{
+  "nome": "Teste Silva",
+  "email": "teste.silva@email.com",
+  "cidade": "São Paulo"
+}
+
+### Listar usuários
+GET http://localhost:8000/usuarios/
+
+### Buscar usuário por ID (substitua o ID)
+GET http://localhost:8000/usuarios/{{usuario_id}}
+
+### Atualizar usuário (substitua o ID)
+PUT http://localhost:8000/usuarios/{{usuario_id}}
+Content-Type: application/json
+
+{
+  "nome": "Teste Silva Atualizado"
+}
+
+### Remover usuário (substitua o ID)
+DELETE http://localhost:8000/usuarios/{{usuario_id}}
+
+### ========================================================================
+### RESERVAS (Req. 6, 8, 10)
+### ========================================================================
+
+### Criar reserva (substitua os IDs)
+### Rate limit: máx. 10 por minuto por usuário (Req. 8)
+POST http://localhost:8000/reservas/
+Content-Type: application/json
+
+{
+  "usuario_id": "{{usuario_id}}",
+  "evento_id": "{{evento_id}}",
+  "setor": "Pista",
+  "quantidade": 2
+}
+
+### ========================================================================
+### PEDIDOS (Req. 10)
+### ========================================================================
+
+### Confirmar pedido (a reserva deve existir no Redis)
+### Se a reserva expirou → 410 Gone
+POST http://localhost:8000/pedidos/confirmar
+Content-Type: application/json
+
+{
+  "usuario_id": "{{usuario_id}}",
+  "evento_id": "{{evento_id}}",
+  "setor": "Pista"
+}
+
+### Listar pedidos
+GET http://localhost:8000/pedidos/
+
+### Buscar pedido por ID (substitua o ID)
+GET http://localhost:8000/pedidos/{{pedido_id}}
