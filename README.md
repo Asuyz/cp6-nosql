@@ -10,7 +10,7 @@
 
 ## 👥 Integrantes do Grupo
 
-| RM | Nome do Aluno |
+
 | :---: | :--- |
 565592 - André Emygdio Ferreira
 562194 - Gabriel Lourenço Martins
