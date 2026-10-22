@@ -10,13 +10,13 @@
 
 ## 👥 Integrantes do Grupo
 
-
+| RM | Nome do Aluno |
 | :---: | :--- |
-565592 - André Emygdio Ferreira
-562194 - Gabriel Lourenço Martins
-561336 - Giovane Amato dos Santos
-561959 - Matheus Roque Arantes
-561584 - Orlando Gonçalves de Arruda 
+| **565592** | André Emygdio Ferreira |
+| **562194** | Gabriel Lourenço Martins |
+| **561336** | Giovane Amato dos Santos |
+| **561959** | Matheus Roque Arantes |
+| **561584** | Orlando Gonçalves de Arruda |
 
 ---
 
